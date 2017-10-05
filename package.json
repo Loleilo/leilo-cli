@@ -6,10 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": "https://github.com/sunny-lan/leilo-cli",
   "author": "Sunny",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.1.2",
     "commander": "^2.11.0",
-    "leilo-client-api": "latest"
+    "leilo-client-api": "^0.1.2"
+  },
+  "devDependencies": {
+    "colors": "^1.1.2"
   }
 }
