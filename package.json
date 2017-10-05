@@ -1,0 +1,15 @@
+{
+  "name": "leilo-cli",
+  "version": "1.0.0",
+  "description": "CLI for connecting to Leilo servers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sunny",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.11.0",
+    "leilo-client-api": "latest"
+  }
+}
