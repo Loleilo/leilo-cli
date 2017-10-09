@@ -20,7 +20,6 @@ const setupConn = (user, pass, address = "http://localhost:80") => {
     }, {
         debugLevel: "normal"
     });
-    //todo setup messages
 };
 
 const p = (e) => {
