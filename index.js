@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const client = require('leilo-client-api');
 const program = require('commander');
 const readline = require('readline');
