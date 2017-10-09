@@ -28,7 +28,7 @@ const p = (e) => {
     return e;
 };
 
-//setup command templates
+//setup command template
 program
     .version('0.0.1')
     .description('Leilo CLI');
