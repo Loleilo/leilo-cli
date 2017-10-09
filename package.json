@@ -18,6 +18,6 @@
     "colors": "^1.1.2"
   },
   "bin": {
-    "leilo": "node index.js"
+    "leilo": "./index.js"
   }
 }
