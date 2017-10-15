@@ -1,6 +1,6 @@
 {
   "name": "leilo-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CLI for connecting to Leilo servers",
   "main": "index.js",
   "scripts": {
