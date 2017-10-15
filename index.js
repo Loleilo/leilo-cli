@@ -15,6 +15,9 @@ const cust = process.argv.slice(0, 2);
 
 let conn;
 const setupConn = (user, pass, address = "http://localhost:80") => {
+    if(conn)
+        conn.emit(['forceDisconnect', localID, localID]);
+
     conn = client(address, {
         username: user,
         password: pass,
