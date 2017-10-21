@@ -4,6 +4,7 @@ const program = require('commander');
 const readline = require('readline');
 const colors = require('colors');
 const d = require('util').getDefault;
+const version = require('./package.json').version;
 const localID = "local";
 const serverID = "leilo";
 
@@ -13,16 +14,18 @@ const r1 = readline.createInterface({
 });
 const cust = process.argv.slice(0, 2);
 
-let conn;
-const setupConn = (user, pass, address = "http://localhost:80") => {
-    if(conn)
+let conn = client();
+let username;
+const setupConn = (user, pass) => {
+    if (username)
         conn.emit(['forceDisconnect', localID, localID]);
+    username=user;
 
-    conn = client(address, {
-        username: user,
-        password: pass,
+    conn.emitNext({
+        name: 'auth'
     }, {
-        debugLevel: "normal"
+        username: username,
+        password: pass,
     });
 };
 
@@ -34,7 +37,7 @@ const p = (e) => {
 
 //setup command template
 program
-    .version('0.0.1')
+    .version(version)
     .description('Leilo CLI');
 
 program.command('quit').alias('q')
@@ -50,7 +53,7 @@ program.command('login <user> <pass> [address]').alias('l')
 
 program.command('updateUserLevel <user> <level>').alias('uul')
     .description('Changes a users level')
-    .action((user, level) => conn.emit(['updateUserLevel', localID, serverID], {
+    .action((user, level) => conn.emit(['updateUserLevel', username, serverID], {
         user: user,
         level: level,
     }));
@@ -58,7 +61,7 @@ program.command('updateUserLevel <user> <level>').alias('uul')
 program.command('create <name> <value> [path...]').alias('c')
     .description('Create an object')
     .action((name, value, path) =>
-        conn.emit(['create', localID, serverID, 'path', ...p(path)], {
+        conn.emit(['create', username, serverID, 'path', ...p(path)], {
             newObjName: name,
             newObjVal: value,
         }));
@@ -66,14 +69,14 @@ program.command('create <name> <value> [path...]').alias('c')
 program.command('update <value> [path...]').alias('u')
     .description('Update an object')
     .action((value, path) =>
-        conn.emit(['update', localID, serverID, 'path', ...p(path)], {
+        conn.emit(['update', username, serverID, 'path', ...p(path)], {
             value: value,
         }));
 
 program.command('delete [path...]').alias('d')
     .description('Delete an object')
     .action((path) =>
-        conn.emit(['delete', localID, serverID, 'path', ...p(path)]));
+        conn.emit(['delete', username, serverID, 'path', ...p(path)]));
 
 program.command('subscribe [path...]').alias("sub")
     .description('Subscribe to an object')
@@ -90,7 +93,7 @@ program.command('unsubscribe [path...]').alias("unsub")
 
 program.command('createUser <user> <pass>').alias('cu')
     .description('Creates a user')
-    .action((user, pass) => conn.emit(['createUser', localID, serverID], {
+    .action((user, pass) => conn.emit(['createUser', username, serverID], {
         username: user,
         password: pass,
     }));
